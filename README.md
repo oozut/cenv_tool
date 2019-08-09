@@ -1,8 +1,8 @@
 # conda-env-manager: cenv
 
 ![coverage](docs/img/coverage.svg)
-[![PyPI version fury.io](https://badge.fury.io/py/ansicolortags.svg)](https://pypi.python.org/pypi/cenv_tool/)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/ansicolortags.svg)](https://pypi.python.org/pypi/cenv_tool/)
+[![PyPI version fury.io](https://badge.fury.io/py/cenv_tool.svg)](https://pypi.python.org/pypi/cenv_tool/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/cenv_tool.svg)](https://pypi.python.org/pypi/cenv_tool/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 ![logo](docs/img/logo.png)

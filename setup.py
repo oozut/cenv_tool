@@ -21,14 +21,21 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='cenv_tool',
-    version='1.0.0',
+    version='1.0.1',
     description='conda environment creation and update from meta.yaml',
     python_requires='==3.*,>=3.7.0',
-    project_urls={'homepage': 'https://www.github.com/skallfass/cenv_tool'},
+    project_urls={
+        'homepage': 'https://www.github.com/skallfass/cenv_tool',
+        'repository': 'https://github.com/skallfass/cenv_tool'
+    },
     author='Simon Kallfass',
     author_email='skallfass@ouroboros.info',
     license='MIT',
     keywords='conda environment dependencies',
+    classifiers=[
+        'Operating System :: Unix', 'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.7'
+    ],
     entry_points={
         'console_scripts': [
             'cenv = cenv_tool.project:main',
