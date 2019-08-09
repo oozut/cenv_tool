@@ -8,13 +8,13 @@ conda-env-manager: cenv
    :alt: coverage
 
 
-.. image:: https://badge.fury.io/py/cenv_tool.svg
-   :target: https://pypi.python.org/pypi/cenv_tool/
+.. image:: https://badge.fury.io/py/cenv-tool.svg
+   :target: https://pypi.python.org/pypi/cenv-tool/
    :alt: PyPI version fury.io
 
 
-.. image:: https://img.shields.io/pypi/pyversions/cenv_tool.svg
-   :target: https://pypi.python.org/pypi/cenv_tool/
+.. image:: https://img.shields.io/pypi/pyversions/cenv-tool.svg
+   :target: https://pypi.python.org/pypi/cenv-tool/
    :alt: PyPI pyversions
 
 
