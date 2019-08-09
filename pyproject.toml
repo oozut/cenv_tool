@@ -5,7 +5,7 @@ description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
 readme = "README.md"
-homepage = "https://www.cenv.ouroboros.info"
+homepage = "https://www.github.com/skallfass/cenv_tool"
 keywords = ["conda", "environment", "dependencies"]
 
 
