@@ -38,6 +38,11 @@ The usage of cenv reduces the conda commands to use to the following:
 * `cenv` to create / update an environment
 
 
+## Documentation
+For complete documentation see
+[cenv documentation](https://cenv.ouroboros.info/).
+
+
 ## Installation
 
 Install `cenv` using pip:

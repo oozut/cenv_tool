@@ -60,6 +60,12 @@ The usage of cenv reduces the conda commands to use to the following:
 * ``conda remove -n ... --all`` to remove an environment
 * ``cenv`` to create / update an environment
 
+Documentation
+-------------
+
+For complete documentation see
+`cenv documentation <https://cenv.ouroboros.info/>`_.
+
 Installation
 ------------
 

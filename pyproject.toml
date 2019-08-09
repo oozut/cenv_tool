@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "cenv_tool"
-version = "1.0.1"
+version = "1.0.2"
 description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
 readme = "README.md"
-homepage = "https://www.github.com/skallfass/cenv_tool"
+homepage = "https://www.cenv.ouroboros.info"
 repository = "https://github.com/skallfass/cenv_tool"
 keywords = ["conda", "environment", "dependencies"]
 classifiers = [
