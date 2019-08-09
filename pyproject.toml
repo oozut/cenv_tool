@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "cenv_tool"
+version = "1.0.0"
+description = "conda environment creation and update from meta.yaml"
+license = "MIT"
+authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
+readme = "README.md"
+homepage = "https://www.cenv.ouroboros.info"
+keywords = ["conda", "environment", "dependencies"]
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+attrs = "~19"
+jinja2 = ">=2"
+"ruamel.yaml" = ">=0.15"
+six = ">=1.12"
+marshmallow = ">=2.19,<3"
+
+
+[tool.poetry.dev-dependencies]
+coverage-badge = "~1"
+ipython = ">=7"
+mkdocs = "~1"
+monkeytype = ">=19"
+pydoc-markdown = "~2"
+pylint = ">=2"
+pytest = "^3.0"
+pytest-cov = '~2'
+pytest-datafiles = '~2'
+yapf = ">=0"
+
+
+[tool.poetry.scripts]
+cenv = "cenv_tool.project:main"
+init_cenv = "cenv_tool.init_cenv:main"
+
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+
+[tool.poetry.extras]
+docs = ["mkdocs", "pydoc-markdown"]
+
+
+[tool.dephell.main]
+# read from poetry format
+from = {format = "poetry", path = "pyproject.toml"}
+# drop dev-dependencies
+envs = ["main"]
+# and convert into setup.py
+to = {format = "setuppy", path = "setup.py"}
+versioning = "semver"
+
+
+[tool.dephell.lock]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "poetrylock", path = "poetry.lock"}
+
+
+[tool.dephell.docs]
+# read dependencies from poetry format
+from = {format = "poetry", path = "pyproject.toml"}
+# install only `docs` extra dependencies
+envs = ["docs"]
+# run this command:
+command = "mkdocs build"

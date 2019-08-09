@@ -1,0 +1,78 @@
+# Info:
+# -----
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+fail_fast: True
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.2.3
+      hooks:
+          #- id: no-commit-to-branch
+          #- args: [--branch, master]
+        - id: check-docstring-first
+        - id: trailing-whitespace
+          args: [--markdown-linebreak-ext=md]
+        - id: end-of-file-fixer
+        - id: check-merge-conflict
+        - id: double-quote-string-fixer
+        - id: mixed-line-ending
+          args: [--fix=lf]
+        - id: check-executables-have-shebangs
+        - id: fix-encoding-pragma
+        - id: check-case-conflict
+        - id: name-tests-test
+    - repo: https://github.com/pre-commit/pygrep-hooks
+      rev: v1.4.1
+      hooks:
+        - id: python-use-type-annotations
+        - id: python-no-log-warn
+    - repo: https://github.com/asottile/reorder_python_imports
+      rev: v1.6.0
+      hooks:
+        - id: reorder-python-imports
+    - repo: https://github.com/asottile/add-trailing-comma
+      rev: v1.4.1
+      hooks:
+        - id: add-trailing-comma
+    - repo: https://github.com/pre-commit/mirrors-yapf
+      rev: v0.28.0
+      hooks:
+        - id: yapf
+          types: [python]
+          always_run: true
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.2.3
+      hooks:
+        - id: check-ast
+    - repo: https://gitlab.com/pycqa/flake8
+      rev: ace069c9c3585b4c74348f94da313bbc020dfc73
+      hooks:
+        - id: flake8
+    - repo: https://github.com/codespell-project/codespell
+      rev: 70196e35a7baa730e26ab6a0da77b5e68d980611
+      hooks:
+        - id: codespell
+    - repo: local
+      hooks:
+          - id: pytest
+            name: pytest
+            description: running pytest
+            entry: bash -c "$VIRTUAL_ENV/bin/pytest"
+            language: system
+            types: [python]
+            pass_filenames: false
+          - id: coverage-badge
+            name: coverage-badge
+            description: create the coverage badge
+            entry: bash -c "$VIRTUAL_ENV/bin/coverage-badge -f -o docs/img/coverage.svg"
+            language: system
+            types: [python]
+            pass_filenames: false
+          - id: build-package
+            name: build the package for the repo
+            description: Generate the dist packages for this repo
+            language: system
+            entry: dephell project build
+            files: "^pyproject.toml$"
+            pass_filenames: false
