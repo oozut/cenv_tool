@@ -3,8 +3,8 @@ conda-env-manager: cenv
 =======================
 
 
-.. image:: coverage.svg
-   :target: coverage.svg
+.. image:: docs/img/coverage.svg
+   :target: docs/img/coverage.svg
    :alt: coverage
 
 

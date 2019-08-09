@@ -24,7 +24,7 @@ setup(
     version='1.0.0',
     description='conda environment creation and update from meta.yaml',
     python_requires='==3.*,>=3.7.0',
-    project_urls={'homepage': 'https://www.cenv.ouroboros.info'},
+    project_urls={'homepage': 'https://www.github.com/skallfass/cenv_tool'},
     author='Simon Kallfass',
     author_email='skallfass@ouroboros.info',
     license='MIT',
