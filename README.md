@@ -1,11 +1,13 @@
 # conda-env-manager: cenv
 
-![coverage](docs/img/coverage.svg)
+![coverage](https://github.com/skallfass/cenv_tool/blob/master/docs/img/coverage.svg)
 [![PyPI version fury.io](https://badge.fury.io/py/cenv-tool.svg)](https://pypi.python.org/pypi/cenv-tool/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/cenv-tool.svg)](https://pypi.python.org/pypi/cenv-tool/)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![Documentation Status](https://readthedocs.org/projects/cenv-tool/badge/?version=latest)](https://cenv-tool.readthedocs.io/en/latest/?badge=latest)
+[![Powered by DepHell](https://github.com/dephell/dephell/blob/master/assets/badge.svg)](https://github.com/dephell/dephell)
 
-![logo](docs/img/logo.png)
+![logo](https://github.com/skallfass/cenv_tool/blob/master/docs/img/logo.png)
 
 Due to the redundant dependency information inside the `meta.yaml` (required
 to create the conda-package) and the `environment.yml` (as definition file
@@ -40,14 +42,14 @@ The usage of cenv reduces the conda commands to use to the following:
 
 ## Documentation
 For complete documentation see
-[cenv documentation](https://cenv.ouroboros.info/).
+[readthedocs](https://cenv-tool.readthedocs.io/en/latest/).
 
 
 ## Installation
 
 Install `cenv` using pip:
 ```bash
-pip3 install cenv_tool
+pip install cenv_tool
 ```
 
 Now run `init_cenv` to create the relevant config-files and add the
@@ -187,12 +189,30 @@ If you want to turn this functionality on you need to modify your
 
 Example for the output of the `cenv` command:
 
+On create:
 ```bash
-    ┣━━ Cloning existing env as backup ...
-    ┣━━ Removing existing env ...
-    ┣━━ Creating env ...
-    ┣━━ Removing backup ...
-    ┗━━ Exporting env to environment.yml ...
+Creating cenv_dev
+   ├── Create environment
+   │   └── Created
+   ├── write md5sum of meta.yaml
+   │   └── updated
+   └── Done
+```
+
+On update:
+```bash
+Updating cenv_dev
+   ├── Create backup
+   │   └── Created
+   ├── Remove existing env
+   │   └── Removed
+   ├── Create environment
+   │   ├── Clear backup
+   │   │   └── Cleared
+   │   └── Created
+   ├── write md5sum of meta.yaml
+   │   └── updated
+   └── Done
 ```
 
 # Development of cenv

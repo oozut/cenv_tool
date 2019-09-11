@@ -42,13 +42,13 @@ def initialize_cenv(
     zshrc: Path,
     bashrc: Path,
 ) -> NoReturn:
-    """Install user-config and cenv.sh for autoactivate and autoupdate.
+    """
+    Install user-config and cenv.sh for autoactivate and autoupdate.
 
     Parameters:
         config_path: the path for cenv config-stuff.
         autoenv_script_path: the path to install the cenv.sh script to.
-        autoenv_script_source_path: the path where to get the cenv.sh script
-            from
+        autoenv_script_source_path: the path where to get the cenv.sh script from
         config_file: the path to install the user-config into.
         config_file_source: the path where to get the config file from.
         zshrc: the path to the users .zshrc

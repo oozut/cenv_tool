@@ -34,6 +34,6 @@ test:
         - cenv_testing_project0001 -v
 
 extra:
-    env_name: cenv_testing_project0001
+    env_name: "cenv_testing_project0001"
     dev_requirements:
         - pylint >=2.2.2

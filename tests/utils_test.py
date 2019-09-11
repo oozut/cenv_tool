@@ -8,6 +8,7 @@ from marshmallow import ValidationError
 from cenv_tool.utils import CenvProcessError
 from cenv_tool.utils import read_meta_yaml
 from cenv_tool.utils import run_in_bash
+from cenv_tool.utils import StrDict
 
 
 @pytest.mark.parametrize(
@@ -93,3 +94,17 @@ def test_run_in_bash_fails():
     """Test if run_in_bash works as expected."""
     with pytest.raises(CenvProcessError):
         run_in_bash(cmd='ls-a tests/testproject/conda-build')
+
+
+def test_strdict():
+    example_dict = StrDict({
+        'a': 1,
+        'b': {
+            'c': 'test'
+        },
+        'd': ''
+    })
+    assert example_dict.get('a') == 1
+    assert example_dict.get('b') == {'c': 'test'}
+    assert not example_dict.get('d')
+    assert not example_dict.get('e')

@@ -65,7 +65,7 @@ repos:
           - id: coverage-badge
             name: coverage-badge
             description: create the coverage badge
-            entry: bash -c "$VIRTUAL_ENV/bin/coverage-badge -f -o docs/img/coverage.svg"
+            entry: bash -c "$VIRTUAL_ENV/bin/coverage-badge -f -o docs/_static/coverage.svg"
             language: system
             types: [python]
             pass_filenames: false

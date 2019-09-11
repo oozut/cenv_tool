@@ -1,4 +1,8 @@
-## Legal Disclosure
+Impressum
+*********
+
+Legal Disclosure
+================
 
 Information in accordance with section 5 TMG
 
@@ -7,14 +11,16 @@ Information in accordance with section 5 TMG
 * 76139 Karlsruhe
 
 
-## Contact
+Contact
+-------
 
 * Telephone: +49 177 176 7126
 * E-Mail: skallfass@ouroboros.info
 * Homepage: https://www.ouroboros.info
 
 
-## Disclaimer
+Disclaimer
+----------
 
 Accountability for content
 The contents of our pages have been created with the utmost care. However, we
@@ -28,7 +34,8 @@ under generally applicable laws remain unaffected by this as per §§ 8 to 10
 of the Telemedia Act (TMG).
 
 
-## Accountability for links
+Accountability for links
+------------------------
 
 Responsibility for the content of external links (to web pages of third
 parties) lies solely with the operators of the linked pages. No violations
@@ -36,7 +43,8 @@ were evident to us at the time of linking. Should any legal infringement
 become known to us, we will remove the respective link immediately.
 
 
-## Copyright
+Copyright
+---------
 
 Our web pages and their contents are subject to German copyright law.
 Unless expressly permitted by law (§ 44a et seq. of the copyright law),
@@ -48,10 +56,12 @@ Unauthorized utilization of copyrighted works is punishable
 (§ 106 of the copyright law).
 
 
-# Privacy Statement
+Privacy Statement
+=================
 
 
-## General
+General
+-------
 
 Your personal data (e.g. title, name, house address, e-mail address,
 phone number, bank details, credit card number) are processed by us only in
@@ -62,7 +72,8 @@ web pages. If links on our pages route you to other pages, please inquire
 there about how your data are handled in such cases.
 
 
-## Inventory data
+Inventory data
+--------------
 
 1. Your personal data, insofar as these are necessary for this contractual
    relationship (inventory data) in terms of its establishment, organization
@@ -77,7 +88,8 @@ there about how your data are handled in such cases.
    their further use.
 
 
-## Disclosure
+Disclosure
+----------
 
 According to the Federal Data Protection Act, you have a right to
 free-of-charge information about your stored data, and possibly entitlement

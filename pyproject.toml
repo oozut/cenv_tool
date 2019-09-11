@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cenv_tool"
-version = "1.0.2"
+version = "1.1.0"
 description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
@@ -16,25 +16,26 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "==3.*,>=3.7.0"
 attrs = "~19"
 jinja2 = ">=2"
-"ruamel.yaml" = ">=0.15"
+pyyaml = "^5"
 six = ">=1.12"
 marshmallow = ">=2.19,<3"
 
 
 [tool.poetry.dev-dependencies]
-coverage-badge = "~1"
+coverage-badge = "==1.*,>=1.0.0"
 ipython = ">=7"
-mkdocs = "~1"
 monkeytype = ">=19"
-pydoc-markdown = "~2"
 pylint = ">=2"
-pytest = "^3.0"
-pytest-cov = '~2'
-pytest-datafiles = '~2'
+pytest = "==5.*,>=5.0.0"
+pytest-cov = "==2.*,>=2.0.0"
+pytest-datafiles = "==2.*,>=2.0.0"
 yapf = ">=0"
+sphinx = "==2.*,>=2.0.0"
+sphinx-autodoc-typehints = "==1.*,>=1.0.0"
+sphinx_rtd_theme = "==0.*,>=0.0.0"
 
 
 [tool.poetry.scripts]
@@ -42,13 +43,12 @@ cenv = "cenv_tool.project:main"
 init_cenv = "cenv_tool.init_cenv:main"
 
 
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
-
-
 [tool.poetry.extras]
-docs = ["mkdocs", "pydoc-markdown"]
+docs = ["sphinx", "sphinx-autodoc-typehints"]
+tests = ["pytest", "pytest-cov", "pytest-datafiles"]
+
+
+
 
 
 [tool.dephell.main]
@@ -70,6 +70,20 @@ to = {format = "poetrylock", path = "poetry.lock"}
 # read dependencies from poetry format
 from = {format = "poetry", path = "pyproject.toml"}
 # install only `docs` extra dependencies
-envs = ["docs"]
+envs = ["main", "devs", "docs"]
 # run this command:
-command = "mkdocs build"
+# command = "mkdocs build"
+command = "sphinx-apidoc -f -o docs/source cenv_tool && sphinx-build -W docs/source docs/build"
+
+
+[tool.dephell.pytest]
+# read dependencies from setup.py
+from = {format = "poetry", path = "pyproject.toml"}
+# install main dependencies and `tests` extra dependencies
+envs = ["main", "tests"]
+tests = ["tests", "cenv_tool", "setup.cfg"]
+# run command `pytest`
+command = "pytest -c setup.cfg --cache-clear"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

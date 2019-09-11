@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Contain the processing for creating conda environments from the meta.yaml.
+"""Contain the logic for conda environment creation from ``meta.yaml``.
 
-cenv is a tool to handle conda-environment creation and update from the
-dependency-definition inside the meta.yaml file.
+cenv is a tool to handle conda environment creation and update from the
+dependency-definition inside the ``meta.yaml`` file.
 
 As default conda has two files for dependency management:
-* the environment.yml
-* and the meta.yaml
+* the ``environment.yml``
+* and the ``meta.yaml``
 
-In the environment.yml the environment-definition is stored.
-In the meta.yaml the required information to build a conda-package are
-stored. This means redundant information.
+In the ``environment.yml`` the environment-definition is stored.
+In the ``meta.yaml`` the required information to build a conda-package are
+stored.
+This means redundant information.
 
 cenv collects the dependency-information and all project-specific settings
-from the meta.yaml-file.
+from the ``meta.yaml``.
 
 The collected information is used to create / update the projects conda
 environment.
@@ -41,11 +42,11 @@ from cenv_tool.utils import run_in_bash
 
 @attr.s(slots=True, auto_attribs=True)
 class Project:
-    """Contain a python-project using conda-environments.
+    """Contain a python-project using conda environments.
 
     Containing methods to display information to current project and methods
     to update the projects conda-environment from the settings defined in the
-    projects meta.yaml file.
+    projects ``meta.yaml``.
     """
 
     rules: Rules
@@ -85,13 +86,13 @@ class Project:
         }
 
     def collect_available_envs(self) -> List[str]:
-        """Collect the names of the conda-environments currently installed.
+        """Collect the names of the conda environments currently installed.
 
         Parameters:
             conda_folder: the path where conda is installed.
 
         Returns:
-            List of currently installed conda-environments
+            list of currently installed conda-environments
 
         """
         return run_in_bash(
@@ -100,7 +101,7 @@ class Project:
         ).split('\n')
 
     def write_new_md5sum(self):
-        """Write the new md5sum of the meta.yaml to conda-build/meta.md5."""
+        """Write new md5sum of ``meta.yaml`` to ``conda-build/meta.md5``."""
         message(text='write md5sum of meta.yaml', color='bold', special='row')
         command = (
             'echo "$(md5sum $PWD/conda-build/meta.yaml)" | '
@@ -110,13 +111,13 @@ class Project:
         message(text='updated', color='green', special='end', indent=2)
 
     def export_environment_definition(self) -> NoReturn:
-        """Export the projects environment definition to an environment.yml."""
+        """Export projects environment definition to an ``environment.yml``."""
         message(text='Export environment.yml ...', color='bold', special='row')
         run_in_bash(cmd=self.cmds.export.format(**self.cmd_kwargs))
         message(text='Exported', color='green', special='end', indent=2)
 
     def remove_backup_environment(self) -> NoReturn:
-        """Remove backup cloned from original environment."""
+        """Remove backup environment cloned from original environment."""
         run_in_bash(cmd=self.cmds.clean.format(**self.cmd_kwargs))
 
     def restore_environment_from_backup(self, cloned: bool) -> NoReturn:
@@ -185,10 +186,10 @@ class Project:
         """Create the environment for the project.
 
         Try to create the environment for the project. If the environment
-        already existed and a backup was made and any error occurs, the backup
-        environment is restored.
-        If everything worked correctly the backup (if made) is finally
-        removed.
+        already existed and a backup was made and any error occure, restore the
+        backup environment.
+        If everything worked correctly finally remove the backup (if one was
+        made).
 
         Parameters:
             cloned: indicates if the environment already existed and a backup
@@ -201,7 +202,7 @@ class Project:
             run_in_bash(cmd=self.cmds.create.format(**self.cmd_kwargs))
         except CenvProcessError:
             self.restore_environment_from_backup(cloned=cloned)
-            raise
+            exit(1)
 
         if cloned:
             message(text='Clear backup', color='bold', special='row', indent=2)
@@ -211,18 +212,17 @@ class Project:
         message(text='Created', color='green', special='end', indent=2)
 
     def update(self) -> NoReturn:
-        """Create / recreate the conda-environment of the current project.
+        """Create / recreate the conda environment of the current project.
 
-        If the conda-environment already exists the user is aked for
-        confirmation to continue. Then the environment will be cloned as a
-        backup and the original environment will be removed. Now the new
-        conda-environment will be created. If a backup was created it is
+        If the conda environment already exists, clone the environment as a
+        backup and then remove original environment. Then create the new
+        conda environment. If a backup was created it is
         removed afterwards. If any errors occurs during creation of the new
-        environment the old environment will be recreated from backup and
-        then the backup will be removed. If activated in the config-file, the
-        environment-definition of the created environment is exported to an
-        environment.yml file. Finally the md5sum of the meta.yaml is stored
-        for the autoupdate feature.
+        environment, recreate the old environment from backup and remove the
+        backup afterwards. If activated in the config-file, export the
+        environment-definition of the created environment to an
+        ``environment.yml`` file. Finally store the md5sum of the meta.yaml for
+        the autoupdate feature.
         """
         if self.is_env:
             message(text=f'Updating {self.env_name}', color='cyan')
@@ -241,11 +241,11 @@ class Project:
         message(text='Done', color='green', special='end')
 
 
-def build_arguments() -> Namespace:
+def build_arguments() -> ArgumentParser:
     """Create arguments for the cenv-tool.
 
     Returns:
-        The parsed arguments
+        the parsed arguments.
 
     """
     parser = ArgumentParser(
@@ -260,14 +260,14 @@ def build_arguments() -> Namespace:
         default=False,
         help='Show current version of cenv and exit.',
     )
-    args = parser.parse_args()
-    return args
+    return parser
 
 
 def main() -> NoReturn:
-    """Collect the required args, initializing and running the Project."""
-    args = build_arguments()
-    if args.version:
+    """Collect the required args, initialize and run the Project."""
+    parser = build_arguments()
+    options = parser.parse_args()
+    if options.version:
         print(__version__)
     else:
         Project(rules=RULES).update()

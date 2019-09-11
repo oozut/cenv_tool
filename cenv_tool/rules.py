@@ -74,16 +74,33 @@ ARGPARSE_DESCRIPTION = (
 )
 
 
-@attr.s(slots=True)
+@attr.s(slots=True, auto_attribs=True)
 class CondaCmdFormats:
-    """Contain the formats for the conda commands to use inside cenv."""
+    """Contain the formats for the conda commands to use inside cenv.
 
-    remove = '{conda} remove -n {name} --all -y'
-    export = '{conda} env export -n {name} > conda-build/environment.yml'
-    create = '{conda} create -n {name} {pkgs} -y'
-    clone = '{conda} create -n {name}_backup --clone {name} -y'
-    restore = '{conda} create -n {name} --clone {name}_backup -y'
-    clean = '{conda} remove -n {name}_backup --all -y'
+    Attributes:
+        remove: command to remove a conda environment.
+        export: command to use to export a conda environment to an
+            environment definition file (environment.yml).
+        create: command to use for conda environment creation.
+        clone: command to use to clone a conda environment.
+        restore: command to use to recreate a conda environment from backup
+            conda environment (clone).
+        clean: command to use to remove the backup conda environment.
+    """
+
+    remove: str = attr.ib(default='{conda} remove -n {name} --all -y')
+    export: str = attr.ib(
+        default='{conda} env export -n {name} > conda-build/environment.yml'
+    )
+    create: str = attr.ib(default='{conda} create -n {name} {pkgs} -y')
+    clone: str = attr.ib(
+        default='{conda} create -n {name}_backup --clone {name} -y'
+    )
+    restore: str = attr.ib(
+        default='{conda} create -n {name} --clone {name}_backup -y'
+    )
+    clean: str = attr.ib(default='{conda} remove -n {name}_backup --all -y')
 
     def conda_bin(self, conda_folder):
         """Combine the path of conda-folder with subpath of conda-bin.
@@ -99,8 +116,8 @@ class CondaCmdFormats:
 class Rules:
     """Contain the rules required by cenv-tool."""
 
-    conda_cmds = CondaCmdFormats()
-    git_folder = '.git'
+    conda_cmds: CondaCmdFormats = CondaCmdFormats()
+    git_folder: str = '.git'
 
 
 RULES = Rules()

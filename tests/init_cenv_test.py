@@ -15,13 +15,15 @@ def test_initialize_cenv(datafiles):
     autoenv_script_path = config_path / 'cenv.sh'
     zshrc = Path(datafiles) / '.zshrc'
     bashrc = Path(datafiles) / '.bashrc'
+    autoenv_script_source_path = Path('cenv_tool/cenv.sh')
+    config_file_source = Path('cenv_tool/cenv.yml')
     for _ in range(2):
         initialize_cenv(
             config_path=config_path,
             autoenv_script_path=autoenv_script_path,
-            autoenv_script_source_path=Path('cenv_tool/cenv.sh'),
+            autoenv_script_source_path=autoenv_script_source_path,
             config_file=config_file,
-            config_file_source=Path('cenv_tool/cenv.yml'),
+            config_file_source=config_file_source,
             zshrc=zshrc,
             bashrc=bashrc,
         )

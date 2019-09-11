@@ -6,50 +6,33 @@ from marshmallow import validate
 
 
 class SNPackage(Schema):
-    """Contain the package-section inside a meta.yaml."""
+    """Contain the ``package``-section inside a ``meta.yaml``."""
 
-    name = fields.String(
-        strict=True,
-        required=True,
-    )
-    version = fields.String(
-        strict=True,
-        required=True,
-    )
+    name = fields.String(strict=True, required=True)
+    version = fields.String(strict=True, required=True)
 
 
 class SNSource(Schema):
-    """Contain the source-section inside a meta.yaml."""
+    """Contain the ``source``-section inside a ``meta.yaml``."""
 
-    path = fields.String(
-        strict=True,
-        required=True,
-    )
+    path = fields.String(strict=True, required=True)
 
 
 class SNBuild(Schema):
-    """Contain the build-section inside a meta.yaml.
+    """Contain the ``build``-section inside a ``meta.yaml``.
 
-    Schema for the build-section inside a meta.yaml file, to check this section
-    of a given meta.yaml file in cenv, to be valid.
-    The build-section requires to define the build-number, if the egg-dir
+    The ``build``-section requires to define the build-number, if the egg-dir
     should be preserved, the script to run on installation and if any
     entrypoints are defined for the package.
     """
 
-    build = fields.String(
-        strict=True,
-        required=True,
-    )
+    build = fields.String(strict=True, required=True)
     preserve_egg_dir = fields.String(
         strict=True,
         required=True,
         validate=validate.OneOf(['True', 'False']),
     )
-    script = fields.String(
-        strict=True,
-        required=True,
-    )
+    script = fields.String(strict=True, required=True)
     entry_points = fields.List(
         fields.String(strict=True, required=False),
         strict=True,
@@ -58,18 +41,13 @@ class SNBuild(Schema):
 
 
 class SNRequirements(Schema):
-    """Contain requirements-section inside a meta.yaml.
+    """Contain ``requirements``-section inside a ``meta.yaml``.
 
-    Schema for the requirements-section inside a meta.yaml file, to check this
-    section of a given meta.yaml file in cenv, to be valid.
-    The underlying build- and run-sections have to be valid!
+    The underlying ``build``- and ``run``-sections have to be valid!
     """
 
     build = fields.List(
-        fields.String(
-            strict=True,
-            required=True,
-        ),
+        fields.String(strict=True, required=True),
         strict=True,
         required=True,
     )
@@ -86,38 +64,26 @@ class SNRequirements(Schema):
 
 
 class SNTest(Schema):
-    """Contain tests-section inside a meta.yaml.
-
-    Schema for the test-section inside a meta.yaml file, to check this section
-    of a given meta.yaml file in cenv, to be valid.
-    """
+    """Contain ``tests``-section inside a ``meta.yaml``."""
 
     imports = fields.List(
-        fields.String(
-            strict=True,
-            required=False,
-        ),
+        fields.String(strict=True, required=False),
         strict=True,
         required=False,
     )
     commands = fields.List(
-        fields.String(
-            strict=True,
-            required=False,
-        ),
+        fields.String(strict=True, required=False),
         strict=True,
         required=False,
     )
 
 
 class SNExtra(Schema):
-    """Contain the extra-section inside a meta.yaml.
+    """Contain the ``extra``-section inside a ``meta.yaml``.
 
-    Schema for the extra-section inside a meta.yaml file, to check this
-    section of a given meta.yaml file in cenv, to be valid.
-    The extra-section has to contains the information where to find the
-    conda-folder, the name of the conda-environment to use for the current
-    project and the cenv-version used when the meta.yaml file was created.
+    The ``extra``-section has to contains the information where to find the
+    conda-folder, the name of the conda environment to use for the current
+    project and the cenv-version used when the ``meta.yaml`` file was created.
     """
 
     env_name = fields.String(
@@ -139,41 +105,17 @@ class SNExtra(Schema):
 
 
 class SMetaYaml(Schema):
-    """Contain the representable of a complete meta.yaml file.
+    """Contain the representable of a complete ``meta.yaml`` file.
 
-    Schema for a meta.yaml file to be used for cenv.
-    Ensures the meta.yaml to load contains the relevant information about
-    the package, source, build, requirements and extra.
-    The test-section is optional.
+    Schema for a ``meta.yaml`` file to be used for cenv.
+    Ensure the meta.yaml to load contains the relevant information about
+    the ``package``, ``source``, ``build``, ``requirements`` and ``extra``.
+    The ``test``-section is optional.
     """
 
-    package = fields.Nested(
-        SNPackage,
-        strict=True,
-        required=True,
-    )
-    source = fields.Nested(
-        SNSource,
-        strict=True,
-        required=True,
-    )
-    build = fields.Nested(
-        SNBuild,
-        strict=True,
-        required=True,
-    )
-    requirements = fields.Nested(
-        SNRequirements,
-        strict=True,
-        required=True,
-    )
-    test = fields.Nested(
-        SNTest,
-        strict=True,
-        required=False,
-    )
-    extra = fields.Nested(
-        SNExtra,
-        strict=True,
-        required=True,
-    )
+    package = fields.Nested(SNPackage, strict=True, required=True)
+    source = fields.Nested(SNSource, strict=True, required=True)
+    build = fields.Nested(SNBuild, strict=True, required=True)
+    requirements = fields.Nested(SNRequirements, strict=True, required=True)
+    test = fields.Nested(SNTest, strict=True, required=False)
+    extra = fields.Nested(SNExtra, strict=True, required=True)

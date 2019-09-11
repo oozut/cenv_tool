@@ -3,8 +3,8 @@ conda-env-manager: cenv
 =======================
 
 
-.. image:: docs/img/coverage.svg
-   :target: docs/img/coverage.svg
+.. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/img/coverage.svg
+   :target: https://github.com/skallfass/cenv_tool/blob/master/docs/img/coverage.svg
    :alt: coverage
 
 
@@ -23,9 +23,19 @@ conda-env-manager: cenv
    :alt: MIT license
 
 
+.. image:: https://readthedocs.org/projects/cenv-tool/badge/?version=latest
+   :target: https://cenv-tool.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
-.. image:: docs/img/logo.png
-   :target: docs/img/logo.png
+
+.. image:: https://github.com/dephell/dephell/blob/master/assets/badge.svg
+   :target: https://github.com/dephell/dephell
+   :alt: Powered by DepHell
+
+
+
+.. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/img/logo.png
+   :target: https://github.com/skallfass/cenv_tool/blob/master/docs/img/logo.png
    :alt: logo
 
 
@@ -64,7 +74,7 @@ Documentation
 -------------
 
 For complete documentation see
-`cenv documentation <https://cenv.ouroboros.info/>`_.
+`readthedocs <https://cenv-tool.readthedocs.io/en/latest/>`_.
 
 Installation
 ------------
@@ -73,7 +83,7 @@ Install ``cenv`` using pip:
 
 .. code-block:: bash
 
-   pip3 install cenv_tool
+   pip install cenv_tool
 
 Now run ``init_cenv`` to create the relevant config-files and add the
 autoactivate- and autoupdate-shell-function to your ``.bashrc`` / ``.zshrc``.
@@ -229,13 +239,33 @@ If you want to turn this functionality on you need to modify your
 
 Example for the output of the ``cenv`` command:
 
+On create:
+
 .. code-block:: bash
 
-       ┣━━ Cloning existing env as backup ...
-       ┣━━ Removing existing env ...
-       ┣━━ Creating env ...
-       ┣━━ Removing backup ...
-       ┗━━ Exporting env to environment.yml ...
+   Creating cenv_dev
+      ├── Create environment
+      │   └── Created
+      ├── write md5sum of meta.yaml
+      │   └── updated
+      └── Done
+
+On update:
+
+.. code-block:: bash
+
+   Updating cenv_dev
+      ├── Create backup
+      │   └── Created
+      ├── Remove existing env
+      │   └── Removed
+      ├── Create environment
+      │   ├── Clear backup
+      │   │   └── Cleared
+      │   └── Created
+      ├── write md5sum of meta.yaml
+      │   └── updated
+      └── Done
 
 Development of cenv
 ===================

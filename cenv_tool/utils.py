@@ -10,7 +10,7 @@ from typing import NoReturn
 import jinja2
 import six
 from marshmallow import ValidationError
-from ruamel.yaml import YAML
+import yaml
 
 from cenv_tool.schemata import SMetaYaml
 
@@ -28,10 +28,14 @@ class CenvProcessError(Exception):
 def message(
     *, text: str, color: str, special: str = None, indent: int = 1
 ) -> NoReturn:
-    """Print the passed text in the passed color on terminal.
+    """Print passed ``text`` in the passed ``color`` on terminal.
 
     Parameters:
-        text: The text to print colored on terminal
+        text: the text to print colored on terminal.
+        color: the color of the text to print.
+        special: special kind of message to print. Available are ``'row'`` and
+            ``'end'``.
+        indent: the indent to use for the text.
 
     """
     color_mapping = {
@@ -57,7 +61,7 @@ def message(
 
 
 def run_in_bash(cmd: str) -> str:
-    """Run passed cmd inside bash using the subprocess.check_output-function.
+    """Run passed ``cmd`` inside bash using :func:`subprocess.check_output`.
 
     Parameters:
         cmd: the command to execute.
@@ -68,16 +72,20 @@ def run_in_bash(cmd: str) -> str:
     """
     try:
         result = check_output([cmd], shell=True, stderr=STDOUT)
-    except CalledProcessError:
-        raise CenvProcessError()
+    except CalledProcessError as err:
+        error_message = err.output.decode('utf8').split('\n')
+        message(text='the following error occured:', color='red')
+        for line in error_message:
+            message(text=line, color='bold')
+        raise CenvProcessError(str(err.output))
     return result.strip().decode('ascii')
 
 
 class NullUndefined(jinja2.Undefined):
-    """Handle jinja2-variables with undefined content inside the meta.yaml."""
+    """Handle jinja2-variables with undefined content of ``meta.yaml.``"""
 
     def __unicode__(self):
-        """Replace uncode dunder of this class."""
+        """Replace unicode dunder of this class."""
         return six.text_type(self._undefined_name)
 
     def __getattr__(self, attribute_name: str):
@@ -90,7 +98,7 @@ class NullUndefined(jinja2.Undefined):
 
 
 class StrDict(dict):
-    """Handle dictionaries for jinja2-variables inside the meta.yaml."""
+    """Handle dictionaries for jinja2-variables of ``meta.yaml``."""
 
     def __getitem__(self, key: str, default: str = '') -> str:
         """Replace getitem dunder of this class."""
@@ -100,17 +108,16 @@ class StrDict(dict):
 def read_meta_yaml(path: Path) -> dict:
     """Read the meta.yaml file.
 
-    The file is read from relative path conda-build/meta.yaml inside
-    the current path, validates the meta.yaml using the marshmallow-schema,
-    extracts the dependency-information and the project-settings and returns
-    these information.
+    The file is read from relative path ``conda-build/meta.yaml`` inside
+    the current path, validate the ``meta.yaml`` using the marshmallow-schema,
+    :class:`SMetaYaml`, extract the dependency-information and the
+    project-settings and return these information.
 
     Parameters:
-        path: The current working directory
+        path: the current working directory.
 
     Returns:
-        List containing the project-settings as a dict and the dependencies
-        also as a dict
+        list containing the project-settings and the dependencies (both dicts)
 
     """
     # load the meta.yaml-content
@@ -123,7 +130,7 @@ def read_meta_yaml(path: Path) -> dict:
         'load_setup_py_data': StrDict,
     }
     rendered_myaml = jinja2_loaded_myaml.render(**render_kwargs)
-    loaded_myaml = YAML(typ='base').load(rendered_myaml)
+    loaded_myaml = yaml.safe_load(rendered_myaml)
 
     # validate the content of loaded meta.yaml
     try:
@@ -139,8 +146,7 @@ def read_meta_yaml(path: Path) -> dict:
     if meta_yaml_content['extra'].get('dev_requirements'):
         dependencies.extend(meta_yaml_content['extra']['dev_requirements'])
 
-    # combine the collected project-settings and the collected dependencies
-    # to one output of this function
+    # return combined collected project-settings and collected dependencies
     return meta_yaml_content, dependencies
 
 
@@ -157,11 +163,11 @@ def read_config():
     default_config_path = Path(__file__).parent / 'cenv.yml'
 
     # Collect settings from config file .cenv.yml
-    main_config = YAML(typ='safe').load(default_config_path.open().read())
+    main_config = yaml.safe_load(default_config_path.open().read())
 
     # if a user-config-file exists, read the content and update the main-config
     if user_config_path.exists():
-        user_config = YAML(typ='safe').load(user_config_path.open().read())
+        user_config = yaml.safe_load(user_config_path.open().read())
         main_config.update(user_config)
 
     return main_config
