@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='cenv_tool',
-    version='1.1.0',
+    version='1.1.1',
     description='conda environment creation and update from meta.yaml',
     python_requires='==3.*,>=3.7.0',
     project_urls={
@@ -61,7 +61,8 @@ setup(
             'pytest-datafiles==2.*,>=2.0.0'
         ],
         'docs': [
-            'sphinx==2.*,>=2.0.0', 'sphinx-autodoc-typehints==1.*,>=1.0.0'
+            'sphinx==2.*,>=2.0.0', 'sphinx-autodoc-typehints==1.*,>=1.0.0',
+            'sphinx-rtd-theme==0.*,>=0.0.0'
         ]
     },
 )
