@@ -5,12 +5,13 @@ from pathlib import Path
 from subprocess import CalledProcessError
 from subprocess import check_output
 from subprocess import STDOUT
+from typing import List
 from typing import NoReturn
 
 import jinja2
 import six
-from marshmallow import ValidationError
 import yaml
+from marshmallow import ValidationError
 
 from cenv_tool.schemata import SMetaYaml
 
@@ -105,19 +106,40 @@ class StrDict(dict):
         return self[key] if key in self else default
 
 
+def extract_dependencies_from_meta_yaml(meta_yaml_content: dict) -> List[str]:
+    """
+    Extract the dependencies defined in the requirements-run-section.
+
+    If additional dev-requirements are defined in the
+    extra-dev_requirements-section, these dependencies are added to the other
+    dependencies.
+
+    Parameters:
+        meta_yaml_content: the content from a ``meta.yaml`` as a dict.
+
+    Returns:
+        the collected dependencies.
+
+    """
+    # extract the dependencies defined the the requirements-run-section
+    dependencies = meta_yaml_content['requirements']['run']
+    if meta_yaml_content['extra'].get('dev_requirements'):
+        dependencies.extend(meta_yaml_content['extra']['dev_requirements'])
+    return dependencies
+
+
 def read_meta_yaml(path: Path) -> dict:
     """Read the meta.yaml file.
 
     The file is read from relative path ``conda-build/meta.yaml`` inside
     the current path, validate the ``meta.yaml`` using the marshmallow-schema,
-    :class:`SMetaYaml`, extract the dependency-information and the
-    project-settings and return these information.
+    :class:`SMetaYaml`, extract the project-settings.
 
     Parameters:
         path: the current working directory.
 
     Returns:
-        list containing the project-settings and the dependencies (both dicts)
+        the ``meta.yaml`` content as a dict.
 
     """
     # load the meta.yaml-content
@@ -141,13 +163,8 @@ def read_meta_yaml(path: Path) -> dict:
         message(text=f'ValidationError in {err.args[0]}', color='red')
         raise
 
-    # extract the dependencies defined the the requirements-run-section
-    dependencies = meta_yaml_content['requirements']['run']
-    if meta_yaml_content['extra'].get('dev_requirements'):
-        dependencies.extend(meta_yaml_content['extra']['dev_requirements'])
-
-    # return combined collected project-settings and collected dependencies
-    return meta_yaml_content, dependencies
+    # return combined collected project-settings
+    return meta_yaml_content
 
 
 def read_config():

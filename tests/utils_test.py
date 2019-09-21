@@ -6,13 +6,14 @@ import pytest
 from marshmallow import ValidationError
 
 from cenv_tool.utils import CenvProcessError
+from cenv_tool.utils import extract_dependencies_from_meta_yaml
 from cenv_tool.utils import read_meta_yaml
 from cenv_tool.utils import run_in_bash
 from cenv_tool.utils import StrDict
 
 
 @pytest.mark.parametrize(
-    'meta_yaml_path, expected_meta_yaml_content, expected_dependencies',
+    'meta_yaml_path, expected_meta_yaml_content',
     [
         (
             Path('tests/testproject'),
@@ -25,7 +26,6 @@ from cenv_tool.utils import StrDict
                         'jinja2 >=2.10',
                         'six >=1.12.0',
                         'yaml >=0.1.7',
-                        'pylint >=2.2.2',
                     ],
                 },
                 'extra': {
@@ -55,6 +55,23 @@ from cenv_tool.utils import StrDict
                     'name': 'cenv_testing_project0001',
                 },
             },
+        ),
+    ],
+)
+def test_read_meta_yaml(
+    meta_yaml_path,
+    expected_meta_yaml_content,
+):
+    """Test if the read_meta_yaml function works as expected."""
+    meta_yaml_content = read_meta_yaml(path=meta_yaml_path)
+    assert meta_yaml_content == expected_meta_yaml_content
+
+
+@pytest.mark.parametrize(
+    'meta_yaml_path, expected_dependencies',
+    [
+        (
+            Path('tests/testproject'),
             [
                 'python 3.7.3',
                 'attrs >=19',
@@ -66,15 +83,15 @@ from cenv_tool.utils import StrDict
         ),
     ],
 )
-def test_read_meta_yaml(
+def test_extract_dependencies_from_meta_yaml(
     meta_yaml_path,
-    expected_meta_yaml_content,
     expected_dependencies,
 ):
     """Test if the read_meta_yaml function works as expected."""
-    meta_yaml_content, dependencies = read_meta_yaml(path=meta_yaml_path)
-    assert meta_yaml_content == expected_meta_yaml_content
+    meta_yaml_content = read_meta_yaml(path=meta_yaml_path)
+    dependencies = extract_dependencies_from_meta_yaml(meta_yaml_content)
     assert expected_dependencies == dependencies
+
 
 
 @pytest.mark.parametrize('meta_yaml_path', [Path('tests/invalid_testproject')])

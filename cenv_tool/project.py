@@ -34,6 +34,7 @@ from cenv_tool.rules import CondaCmdFormats
 from cenv_tool.rules import RULES
 from cenv_tool.rules import Rules
 from cenv_tool.utils import CenvProcessError
+from cenv_tool.utils import extract_dependencies_from_meta_yaml
 from cenv_tool.utils import message
 from cenv_tool.utils import read_config
 from cenv_tool.utils import read_meta_yaml
@@ -63,11 +64,12 @@ class Project:
     def __attrs_post_init__(self):
         """Set the more complex attributes of the project class."""
         try:
-            meta_yaml, dependencies = read_meta_yaml(Path.cwd())
-            settings = meta_yaml['extra']
+            meta_yaml = read_meta_yaml(Path.cwd())
         except FileNotFoundError:
             message(text='project has no meta.yaml!', color='red')
             exit(1)
+        settings = meta_yaml['extra']
+        dependencies = extract_dependencies_from_meta_yaml(meta_yaml)
 
         config = read_config()
         self.is_git = (Path.cwd() / self.rules.git_folder).exists()
