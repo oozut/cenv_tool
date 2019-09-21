@@ -118,11 +118,11 @@ class Project:
         run_in_bash(cmd=self.cmds.export.format(**self.cmd_kwargs))
         message(text='Exported', color='green', special='end', indent=2)
 
-    def remove_backup_environment(self) -> NoReturn:
+    def _remove_backup_environment(self) -> NoReturn:
         """Remove backup environment cloned from original environment."""
         run_in_bash(cmd=self.cmds.clean.format(**self.cmd_kwargs))
 
-    def restore_environment_from_backup(self, cloned: bool) -> NoReturn:
+    def _restore_environment_from_backup(self, cloned: bool) -> NoReturn:
         """Restore the environment from the cloned backup environment.
 
         After restore the backup environment is removed.
@@ -136,11 +136,11 @@ class Project:
         if self.is_env and cloned:
             message(text='Recreating backup', color='bold', special='row')
             run_in_bash(cmd=self.cmds.restore.format(**self.cmd_kwargs))
-            self.remove_backup_environment()
+            self._remove_backup_environment()
             message(text='Recreated', color='green', special='end', indent=2)
         message(text='Exit', color='red', special='end')
 
-    def remove_previous_environment(self) -> NoReturn:
+    def _remove_previous_environment(self) -> NoReturn:
         """Remove old version of project environment.
 
         If the old environment can't be removed, the backup made is removed.
@@ -150,7 +150,7 @@ class Project:
             run_in_bash(cmd=self.cmds.remove.format(**self.cmd_kwargs))
             message(text='Removed', color='green', special='end', indent=2)
         except CenvProcessError:
-            self.remove_backup_environment()
+            self._remove_backup_environment()
             message(
                 text=(
                     'Could not remove environment because it is '
@@ -169,17 +169,17 @@ class Project:
         backup_name = f'{self.env_name}_backup'
         if backup_name in self.collect_available_envs():
             message(text='Clear old backup', color='bold', special='row')
-            self.remove_backup_environment()
+            self._remove_backup_environment()
             message(text='Cleared', color='green', special='end', indent=2)
         message(text='Create backup', color='bold', special='row')
         run_in_bash(cmd=self.cmds.clone.format(**self.cmd_kwargs))
         message(text='Created', color='green', special='end', indent=2)
 
-    def handle_existing_environment(self) -> bool:
+    def _handle_existing_environment(self) -> bool:
         """Check if environment already exists and create a backup of it."""
         if self.is_env:
             self.clone_environment_as_backup()
-            self.remove_previous_environment()
+            self._remove_previous_environment()
             return True
 
         return False
@@ -203,7 +203,7 @@ class Project:
         try:
             run_in_bash(cmd=self.cmds.create.format(**self.cmd_kwargs))
         except CenvProcessError:
-            self.restore_environment_from_backup(cloned=cloned)
+            self._restore_environment_from_backup(cloned=cloned)
             exit(1)
 
         if cloned:
@@ -231,7 +231,7 @@ class Project:
         else:
             message(text=f'Creating {self.env_name}', color='cyan')
 
-        cloned = self.handle_existing_environment()
+        cloned = self._handle_existing_environment()
 
         self.create_environment(cloned=cloned)
 
@@ -243,7 +243,7 @@ class Project:
         message(text='Done', color='green', special='end')
 
 
-def build_arguments() -> ArgumentParser:
+def _build_arguments() -> ArgumentParser:
     """Create arguments for the cenv-tool.
 
     Returns:
@@ -267,7 +267,7 @@ def build_arguments() -> ArgumentParser:
 
 def main() -> NoReturn:
     """Collect the required args, initialize and run the Project."""
-    parser = build_arguments()
+    parser = _build_arguments()
     options = parser.parse_args()
     if options.version:
         print(__version__)

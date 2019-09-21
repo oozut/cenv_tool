@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from cenv_tool.project import build_arguments
+from cenv_tool.project import _build_arguments
 from cenv_tool.project import Project
 from cenv_tool.rules import RULES
 
@@ -46,8 +46,8 @@ def test_project_update(datafiles):
 
     # test remaining methods for project environment
     project = Project(rules=RULES)
-    project.remove_previous_environment()
-    project.remove_backup_environment()
+    project._remove_previous_environment()
+    project._remove_backup_environment()
     project.create_environment(cloned=False)
     project.export_environment_definition()
     assert environment_yml.exists()
@@ -55,8 +55,8 @@ def test_project_update(datafiles):
 
     # clean everything after tests
     environment_yml.unlink()
-    project.remove_previous_environment()
-    project.remove_backup_environment()
+    project._remove_previous_environment()
+    project._remove_backup_environment()
     os.chdir(str(current_folder))
 
 
@@ -72,6 +72,6 @@ def test_no_meta_yaml(datafiles):
 
 def test_build_arguments():
     """Test if the option --version is parsable."""
-    parser = build_arguments()
+    parser = _build_arguments()
     options = parser.parse_args(['--v'])
     assert options.version
