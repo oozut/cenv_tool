@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from cenv_tool.project import Project
 from cenv_tool.project import build_arguments
+from cenv_tool.project import Project
 from cenv_tool.rules import RULES
 
 

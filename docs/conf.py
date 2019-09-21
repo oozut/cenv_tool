@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
 import datetime as dt
-import pytz
+import sys
 from pathlib import Path
+
+import pytz
 
 sys.path.insert(0, str(Path.cwd().parent))
 from cenv_tool import __version__
