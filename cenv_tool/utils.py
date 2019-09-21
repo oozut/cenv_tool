@@ -82,7 +82,7 @@ def run_in_bash(cmd: str) -> str:
     return result.strip().decode('ascii')
 
 
-class NullUndefined(jinja2.Undefined):
+class _NullUndefined(jinja2.Undefined):
     """Handle jinja2-variables with undefined content of ``meta.yaml.``"""
 
     def __unicode__(self):
@@ -98,7 +98,7 @@ class NullUndefined(jinja2.Undefined):
         return f'{self}["{attribute_name}"]'
 
 
-class StrDict(dict):
+class _StrDict(dict):
     """Handle dictionaries for jinja2-variables of ``meta.yaml``."""
 
     def __getitem__(self, key: str, default: str = '') -> str:
@@ -144,12 +144,12 @@ def read_meta_yaml(path: Path) -> dict:
     """
     # load the meta.yaml-content
     myaml_content = (path / 'conda-build/meta.yaml').open().read()
-    jinja2_env = jinja2.Environment(undefined=NullUndefined)
+    jinja2_env = jinja2.Environment(undefined=_NullUndefined)
     jinja2_loaded_myaml = jinja2_env.from_string(myaml_content)
     render_kwargs = {
         'os': os,
-        'environ': StrDict(),
-        'load_setup_py_data': StrDict,
+        'environ': _StrDict(),
+        'load_setup_py_data': _StrDict,
     }
     rendered_myaml = jinja2_loaded_myaml.render(**render_kwargs)
     loaded_myaml = yaml.safe_load(rendered_myaml)
