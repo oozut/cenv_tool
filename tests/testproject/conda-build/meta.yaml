@@ -35,5 +35,6 @@ test:
 
 extra:
     env_name: "cenv_testing_project0001"
+    python: 3.7.3
     dev_requirements:
         - pylint >=2.2.2

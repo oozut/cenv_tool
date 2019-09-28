@@ -123,8 +123,21 @@ def extract_dependencies_from_meta_yaml(meta_yaml_content: dict) -> List[str]:
     """
     # extract the dependencies defined the the requirements-run-section
     dependencies = meta_yaml_content['requirements']['run']
+
+    # remove the python version definition. The version will be extracted
+    # from the extra-python section
+    dependencies = list(
+        filter(
+            lambda x: x.split(' ')[0] != 'python',
+            dependencies
+        )
+    )
+
     if meta_yaml_content['extra'].get('dev_requirements'):
         dependencies.extend(meta_yaml_content['extra']['dev_requirements'])
+
+    # append the python version to use in the conda environment
+    dependencies.append(f'python {meta_yaml_content["extra"]["python"]}')
     return dependencies
 
 

@@ -27,6 +27,7 @@ definition inside this ``meta.yaml``.
 The name of the conda-environment to create / update is defined in the section
 ``extra`` and the variable ``env_name`` inside the ``meta.yaml`` (at
 ``conda-build/meta.yaml``).
+The python version must be defined in ``extra`` inside the key ``python``.
 
 The steps run by cenv:
 

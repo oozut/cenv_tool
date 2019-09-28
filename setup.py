@@ -21,9 +21,9 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='cenv_tool',
-    version='1.1.2',
+    version='2.0.0',
     description='conda environment creation and update from meta.yaml',
-    python_requires='==3.*,>=3.7.0',
+    python_requires='==3.*,>=3.7',
     project_urls={
         'homepage': 'https://www.cenv.ouroboros.info',
         'repository': 'https://github.com/skallfass/cenv_tool'
@@ -45,23 +45,21 @@ setup(
     packages=['cenv_tool'],
     package_data={'cenv_tool': ['*.sh', '*.yml']},
     install_requires=[
-        'attrs==19.*,>=19.0.0', 'jinja2>=2', 'marshmallow<3,>=2.19',
+        'attrs==19.*,>=19.0', 'jinja2>=2', 'marshmallow<3,>=2.19',
         'pyyaml==5.*,>=5.0.0', 'six>=1.12'
     ],
     extras_require={
-        'dev': [
-            'coverage-badge==1.*,>=1.0.0', 'ipython>=7', 'monkeytype>=19',
-            'pylint>=2', 'pytest==5.*,>=5.0.0', 'pytest-cov==2.*,>=2.0.0',
-            'pytest-datafiles==2.*,>=2.0.0', 'sphinx==2.*,>=2.0.0',
-            'sphinx-autodoc-typehints==1.*,>=1.0.0',
-            'sphinx-rtd-theme==0.*,>=0.0.0', 'yapf>=0'
-        ],
         'tests': [
-            'pytest==5.*,>=5.0.0', 'pytest-cov==2.*,>=2.0.0',
-            'pytest-datafiles==2.*,>=2.0.0'
+            'coverage>=4', 'coverage-badge>=1', 'pytest==5.*,>=5.0.0',
+            'pytest-cov>=2', 'pytest-datafiles>=2'
         ],
-        'docs': [
-            'sphinx==2.*,>=2.0.0', 'sphinx-autodoc-typehints==1.*,>=1.0.0'
-        ]
+        'dev': [
+            'coverage>=4', 'coverage-badge>=1', 'ipython>=7',
+            'pylint<2.4,==2.*', 'pytest==5.*,>=5.0.0', 'pytest-cov>=2',
+            'pytest-datafiles>=2', 'sphinx==2.*,>=2.0.0',
+            'sphinx-autodoc-typehints<1.8.0,==1.*', 'sphinx-rtd-theme>=0',
+            'yapf>=0'
+        ],
+        'docs': ['sphinx==2.*,>=2.0.0', 'sphinx-autodoc-typehints<1.8.0,==1.*']
     },
 )
