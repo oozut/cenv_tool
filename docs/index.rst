@@ -62,6 +62,7 @@ Table of contents
    installation.rst
    configuration.rst
    usage.rst
+   development.rst
    modules_base.rst
    about.rst
    license.rst
