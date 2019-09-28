@@ -33,8 +33,8 @@ conda-env-manager: cenv
    :alt: Powered by DepHell
 
 
-.. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/img/logo.png
-   :target: https://github.com/skallfass/cenv_tool/blob/master/docs/img/logo.png
+.. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/_static/logo.png
+   :target: https://github.com/skallfass/cenv_tool/blob/master/docs/_static/logo.png
    :alt: logo
 
 
