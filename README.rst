@@ -3,8 +3,8 @@ conda-env-manager: cenv
 =======================
 
 
-.. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/img/coverage.svg
-   :target: https://github.com/skallfass/cenv_tool/blob/master/docs/img/coverage.svg
+.. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/_static/coverage.svg
+   :target: https://github.com/skallfass/cenv_tool/blob/master/docs/_static/coverage.svg
    :alt: coverage
 
 
@@ -31,7 +31,6 @@ conda-env-manager: cenv
 .. image:: https://github.com/dephell/dephell/blob/master/assets/badge.svg
    :target: https://github.com/dephell/dephell
    :alt: Powered by DepHell
-
 
 
 .. image:: https://github.com/skallfass/cenv_tool/blob/master/docs/img/logo.png

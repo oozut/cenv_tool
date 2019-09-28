@@ -4,7 +4,7 @@ version = "1.1.2"
 description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
-readme = "README.md"
+readme = "README.rst"
 homepage = "https://www.cenv.ouroboros.info"
 repository = "https://github.com/skallfass/cenv_tool"
 keywords = ["conda", "environment", "dependencies"]
@@ -16,8 +16,8 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "==3.*,>=3.7.0"
-attrs = "~19"
+python = "==3.*,>=3.7"
+attrs = "==19.*,>=19.0"
 jinja2 = ">=2"
 pyyaml = "^5"
 six = ">=1.12"
@@ -25,17 +25,17 @@ marshmallow = ">=2.19,<3"
 
 
 [tool.poetry.dev-dependencies]
-coverage-badge = "==1.*,>=1.0.0"
+coverage = ">=4"
+coverage-badge = ">=1"
 ipython = ">=7"
-monkeytype = ">=19"
-pylint = ">=2"
+pylint = "==2.*,<2.4"
 pytest = "==5.*,>=5.0.0"
-pytest-cov = "==2.*,>=2.0.0"
-pytest-datafiles = "==2.*,>=2.0.0"
+pytest-cov = ">=2"
+pytest-datafiles = ">=2"
 yapf = ">=0"
 sphinx = "==2.*,>=2.0.0"
-sphinx-autodoc-typehints = "==1.*,>=1.0.0"
-sphinx_rtd_theme = "==0.*,>=0.0.0"
+sphinx-autodoc-typehints = "==1.*,<1.8.0"
+sphinx_rtd_theme = ">=0"
 
 
 [tool.poetry.scripts]
@@ -44,10 +44,8 @@ init_cenv = "cenv_tool.init_cenv:main"
 
 
 [tool.poetry.extras]
-docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
-tests = ["pytest", "pytest-cov", "pytest-datafiles"]
-
-
+docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx_rtd_theme"]
+tests = ["pytest", "pytest-cov", "pytest-datafiles", "coverage-badge", "coverage"]
 
 
 [tool.dephell.main]
@@ -69,20 +67,22 @@ to = {format = "poetrylock", path = "poetry.lock"}
 # read dependencies from poetry format
 from = {format = "poetry", path = "pyproject.toml"}
 # install only `docs` extra dependencies
-envs = ["main", "devs", "docs"]
+envs = ["main", "docs"]
 # run this command:
 # command = "mkdocs build"
-command = "sphinx-apidoc -f -o docs/source cenv_tool && sphinx-build -W docs/source docs/build"
+command = "sphinx-apidoc -f -o docs cenv_tool && sphinx-build -W docs docs/build"
 
 
 [tool.dephell.pytest]
 # read dependencies from setup.py
 from = {format = "poetry", path = "pyproject.toml"}
 # install main dependencies and `tests` extra dependencies
-envs = ["main", "tests"]
+envs = ["main", "dev", "tests"]
 tests = ["tests", "cenv_tool", "setup.cfg"]
 # run command `pytest`
 command = "pytest -c setup.cfg --cache-clear"
+
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
