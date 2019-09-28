@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cenv_tool"
-version = "1.1.2"
+version = "2.0.0"
 description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
@@ -28,13 +28,13 @@ marshmallow = ">=2.19,<3"
 coverage = ">=4"
 coverage-badge = ">=1"
 ipython = ">=7"
-pylint = "==2.*,<2.4"
+pylint = "<2.4,==2.*"
 pytest = "==5.*,>=5.0.0"
 pytest-cov = ">=2"
 pytest-datafiles = ">=2"
 yapf = ">=0"
 sphinx = "==2.*,>=2.0.0"
-sphinx-autodoc-typehints = "==1.*,<1.8.0"
+sphinx-autodoc-typehints = "<1.8.0,==1.*"
 sphinx_rtd_theme = ">=0"
 
 
@@ -44,8 +44,9 @@ init_cenv = "cenv_tool.init_cenv:main"
 
 
 [tool.poetry.extras]
-docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx_rtd_theme"]
-tests = ["pytest", "pytest-cov", "pytest-datafiles", "coverage-badge", "coverage"]
+docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
+tests = ["coverage", "coverage-badge", "pytest", "pytest-cov", "pytest-datafiles"]
+
 
 
 [tool.dephell.main]

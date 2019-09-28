@@ -46,6 +46,7 @@ the only relevant file and to create and update conda-environment from the
 definition inside this ``meta.yaml``.
 The name of the conda-environment to create / update is defined in the section
 ``extra`` and the variable ``env_name`` inside the ``meta.yaml``.
+The python version must be defined in ``extra`` inside the key ``python``.
 
 The steps run by cenv:
 
@@ -69,11 +70,13 @@ The usage of cenv reduces the conda commands to use to the following:
 * ``conda remove -n ... --all`` to remove an environment
 * ``cenv`` to create / update an environment
 
+
 Documentation
 -------------
 
 For complete documentation see
 `readthedocs <https://cenv-tool.readthedocs.io/en/latest/>`_.
+
 
 Installation
 ------------
@@ -87,11 +90,13 @@ Install ``cenv`` using pip:
 Now run ``init_cenv`` to create the relevant config-files and add the
 autoactivate- and autoupdate-shell-function to your ``.bashrc`` / ``.zshrc``.
 
+
 autoactivate and autoupdate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Per default these features are deactivated, even if added to your shell by
 running ``init_cenv``.
+
 
 autoactivate-feature
 ~~~~~~~~~~~~~~~~~~~~
@@ -105,6 +110,7 @@ To activate the autoactivate-features run:
 
    autoactivate_toggle
 
+
 autoupdate-feature
 ~~~~~~~~~~~~~~~~~~
 
@@ -117,6 +123,7 @@ For the autoupdate-feature run:
 .. code-block:: bash
 
    autoupdate_toggle
+
 
 Usage
 -----
@@ -153,12 +160,14 @@ The required information about the projects conda environment are extracted
 from the meta.yaml.
 This meta.yaml should be located inside the project folder at
 ``./conda-build/meta.yaml``.
-The project-configuration is defined in the ``extra`` section of the ``meta.yaml``.
+The project-configuration is defined in the ``extra`` section of the
+``meta.yaml``.
 There you can define the name of the projects conda-environment at
 ``env_name``.
+The python version has to be defined here at ``python``, too.
 Also you can define requirements only needed during development but not to be
 included into the resulting conda package.
-These requirements have to be defined in the ``dev_requirements``\ -section.
+These requirements have to be defined in the ``dev_requirements`` -section.
 
 All other parts of the ``meta.yaml`` have to be defined as default.
 
@@ -200,6 +209,7 @@ A meta.yaml valid for cenv should look like the following:
 
        extra:
            env_name: example
+           python: 3.6
            dev_requirements:
                - ipython >=7.2.0
 

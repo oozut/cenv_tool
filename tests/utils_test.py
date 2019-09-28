@@ -30,6 +30,7 @@ from cenv_tool.utils import _StrDict
                 },
                 'extra': {
                     'dev_requirements': ['pylint >=2.2.2'],
+                    'python': '3.7.3',
                     'env_name': 'cenv_testing_project0001',
                 },
                 'source': {
@@ -90,7 +91,7 @@ def test_extract_dependencies_from_meta_yaml(
     """Test if the read_meta_yaml function works as expected."""
     meta_yaml_content = read_meta_yaml(path=meta_yaml_path)
     dependencies = extract_dependencies_from_meta_yaml(meta_yaml_content)
-    assert expected_dependencies == dependencies
+    assert list(sorted(expected_dependencies)) == list(sorted(dependencies))
 
 
 

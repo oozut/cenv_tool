@@ -49,6 +49,7 @@ The project-configuration is defined in the ``extra`` section of the
 ``meta.yaml``.
 There you can define the name of the projects conda-environment at
 ``extra:env_name``.
+The python version has to be defined here at ``extra:python``, too.
 Also you can define requirements only needed during development but not to be
 included into the resulting conda package.
 These requirements have to be defined in the
@@ -92,6 +93,7 @@ A meta.yaml valid for cenv should look like the following:
 
     extra:
         env_name: example
+        python: 3.6
         dev_requirements:
             - ipython >=7
 

@@ -92,6 +92,11 @@ class SNExtra(Schema):
         validate=lambda x: ' ' not in x,
     )
 
+    python = fields.String(
+        strict=True,
+        required=True
+    )
+
     dev_requirements = fields.List(
         fields.String(
             strict=True,
