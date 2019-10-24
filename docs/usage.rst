@@ -77,15 +77,17 @@ A meta.yaml valid for cenv should look like the following:
 
     requirements:
         build:
-          - python 3.6.8
-          - pip
-          - setuptools
+            - python
+            - pip
+            - setuptools
         run:
-          - python 3.6.8
-          - attrs >=18.2,<19
-          - jinja2 >=2.10
-          - six >=1.12.0
-          - yaml >=0.1.7
+            - python
+            - attrs >=18.2,<19
+            - jinja2 >=2.10
+            - six >=1.12.0
+            - yaml >=0.1.7
+        run_constrained:
+            - pandas >=0.23
 
     test:
         imports:
@@ -93,7 +95,7 @@ A meta.yaml valid for cenv should look like the following:
 
     extra:
         env_name: example
-        python: 3.6
+        python: 3.6.8
         dev_requirements:
             - ipython >=7
 
@@ -107,6 +109,8 @@ A meta.yaml valid for cenv should look like the following:
         - package >=0.1
 
     The same is required for the ``extra:dev_requirements``-section.
+    If the section ``requirements:run_constrained`` is defined, too, these
+    dependency information is extracted for dependency collection, too.
     Not defining a version will not create or update a conda-environment,
     because this is not the purpose of the conda-usage.
     The validity of the ``meta.yaml`` is checked in ``cenv`` using the

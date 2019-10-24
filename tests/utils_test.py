@@ -19,14 +19,15 @@ from cenv_tool.utils import _StrDict
             Path('tests/testproject'),
             {
                 'requirements': {
-                    'build': ['python 3.7.3', 'pip', 'setuptools'],
+                    'build': ['python', 'pip', 'setuptools'],
                     'run': [
-                        'python 3.7.3',
+                        'python',
                         'attrs >=19',
                         'jinja2 >=2.10',
                         'six >=1.12.0',
                         'yaml >=0.1.7',
                     ],
+                    'run_constrained': ['pandas >=0.23']
                 },
                 'extra': {
                     'dev_requirements': ['pylint >=2.2.2'],
@@ -80,6 +81,7 @@ def test_read_meta_yaml(
                 'six >=1.12.0',
                 'yaml >=0.1.7',
                 'pylint >=2.2.2',
+                'pandas >=0.23'
             ],
         ),
     ],
