@@ -133,6 +133,11 @@ def extract_dependencies_from_meta_yaml(meta_yaml_content: dict) -> List[str]:
         )
     )
 
+    if meta_yaml_content['requirements'].get('run_constrained'):
+        dependencies.extend(
+            meta_yaml_content['requirements']['run_constrained']
+        )
+
     if meta_yaml_content['extra'].get('dev_requirements'):
         dependencies.extend(meta_yaml_content['extra']['dev_requirements'])
 

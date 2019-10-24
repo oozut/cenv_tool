@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cenv_tool"
-version = "2.0.0"
+version = "2.1.0"
 description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]
@@ -16,8 +16,8 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "==3.*,>=3.7"
-attrs = "==19.*,>=19.0"
+python = ">=3.7"
+attrs = ">=19"
 jinja2 = ">=2"
 pyyaml = "^5"
 six = ">=1.12"
@@ -28,13 +28,13 @@ marshmallow = ">=2.19,<3"
 coverage = ">=4"
 coverage-badge = ">=1"
 ipython = ">=7"
-pylint = "<2.4,==2.*"
-pytest = "==5.*,>=5.0.0"
+pylint = ">=2.4"
+pytest = ">=5"
 pytest-cov = ">=2"
 pytest-datafiles = ">=2"
 yapf = ">=0"
-sphinx = "==2.*,>=2.0.0"
-sphinx-autodoc-typehints = "<1.8.0,==1.*"
+sphinx = ">=2"
+sphinx-autodoc-typehints = ">=1.8.0"
 sphinx_rtd_theme = ">=0"
 
 

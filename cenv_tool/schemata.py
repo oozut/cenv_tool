@@ -55,11 +55,21 @@ class SNRequirements(Schema):
         fields.String(
             strict=True,
             required=True,
-            validate=lambda x: '=' in x if 'python ' not in x else True,
+            validate=lambda x: '=' in x if 'python' not in x else True,
             error_messages=dict(validator_failed='Version must be specified'),
         ),
         strict=True,
         required=True,
+    )
+    run_constrained = fields.List(
+        fields.String(
+            strict=True,
+            required=False,
+            validate=lambda x: '=' in x,
+            error_messages=dict(validator_failed='Version must be specified'),
+        ),
+        strict=True,
+        required=False,
     )
 
 
