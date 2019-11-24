@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='cenv_tool',
-    version='2.1.0',
+    version='3.0.1',
     description='conda environment creation and update from meta.yaml',
     python_requires='>=3.7',
     project_urls={
