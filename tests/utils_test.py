@@ -30,9 +30,11 @@ from cenv_tool.utils import _StrDict
                     'run_constrained': ['pandas >=0.23']
                 },
                 'extra': {
-                    'dev_requirements': ['pylint >=2.2.2'],
-                    'python': '3.7.3',
-                    'env_name': 'cenv_testing_project0001',
+                    'cenv': {
+                        'dev_requirements': ['pylint >=2.2.2'],
+                        'python': '3.7.3',
+                        'env_name': 'cenv_testing_project0001',
+                    }
                 },
                 'source': {
                     'path': '..',

@@ -88,14 +88,7 @@ class SNTest(Schema):
     )
 
 
-class SNExtra(Schema):
-    """Contain the ``extra``-section inside a ``meta.yaml``.
-
-    The ``extra``-section has to contains the information where to find the
-    conda-folder, the name of the conda environment to use for the current
-    project and the cenv-version used when the ``meta.yaml`` file was created.
-    """
-
+class SNCenv(Schema):
     env_name = fields.String(
         strict=True,
         required=True,
@@ -117,6 +110,16 @@ class SNExtra(Schema):
         strict=True,
         required=False,
     )
+
+
+class SNExtra(Schema):
+    """Contain the ``extra``-section inside a ``meta.yaml``.
+
+    The ``extra``-section has to contains the information where to find the
+    conda-folder, the name of the conda environment to use for the current
+    project and the cenv-version used when the ``meta.yaml`` file was created.
+    """
+    cenv = fields.Nested(SNCenv, strict=True, required=True)
 
 
 class SMetaYaml(Schema):

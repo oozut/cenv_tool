@@ -138,11 +138,11 @@ def extract_dependencies_from_meta_yaml(meta_yaml_content: dict) -> List[str]:
             meta_yaml_content['requirements']['run_constrained']
         )
 
-    if meta_yaml_content['extra'].get('dev_requirements'):
-        dependencies.extend(meta_yaml_content['extra']['dev_requirements'])
+    if meta_yaml_content['extra']['cenv'].get('dev_requirements'):
+        dependencies.extend(meta_yaml_content['extra']['cenv']['dev_requirements'])
 
     # append the python version to use in the conda environment
-    dependencies.append(f'python {meta_yaml_content["extra"]["python"]}')
+    dependencies.append(f'python {meta_yaml_content["extra"]["cenv"]["python"]}')
     return dependencies
 
 

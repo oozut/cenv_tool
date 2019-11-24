@@ -45,8 +45,8 @@ for the conda-environment during development and for production), ``cenv``
 the only relevant file and to create and update conda-environment from the
 definition inside this ``meta.yaml``.
 The name of the conda-environment to create / update is defined in the section
-``extra`` and the variable ``env_name`` inside the ``meta.yaml``.
-The python version must be defined in ``extra`` inside the key ``python``.
+``extra:cenv`` and the variable ``env_name`` inside the ``meta.yaml``.
+The python version must be defined in ``extra:cenv`` inside the key ``python``.
 
 The steps run by cenv:
 
@@ -160,7 +160,7 @@ The required information about the projects conda environment are extracted
 from the meta.yaml.
 This meta.yaml should be located inside the project folder at
 ``./conda-build/meta.yaml``.
-The project-configuration is defined in the ``extra`` section of the
+The project-configuration is defined in the ``extra:cenv`` section of the
 ``meta.yaml``.
 There you can define the name of the projects conda-environment at
 ``env_name``.
@@ -208,10 +208,11 @@ A meta.yaml valid for cenv should look like the following:
                - example_package
 
        extra:
-           env_name: example
-           python: 3.6
-           dev_requirements:
-               - ipython >=7.2.0
+           cenv:
+               env_name: example
+               python: 3.6
+               dev_requirements:
+                   - ipython >=7.2.0
 
 **ATTENTION**\ :
 

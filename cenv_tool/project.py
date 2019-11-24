@@ -68,7 +68,7 @@ class Project:
         except FileNotFoundError:
             message(text='project has no meta.yaml!', color='red')
             exit(1)
-        settings = meta_yaml['extra']
+        settings = meta_yaml['extra']['cenv']
         dependencies = extract_dependencies_from_meta_yaml(meta_yaml)
 
         config = read_config()

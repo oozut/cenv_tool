@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cenv_tool"
-version = "2.1.0"
+version = "3.0.0"
 description = "conda environment creation and update from meta.yaml"
 license = "MIT"
 authors = ["Simon Kallfass <skallfass@ouroboros.info>"]

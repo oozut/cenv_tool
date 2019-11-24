@@ -48,12 +48,12 @@ This meta.yaml should be located inside the project folder at
 The project-configuration is defined in the ``extra`` section of the
 ``meta.yaml``.
 There you can define the name of the projects conda-environment at
-``extra:env_name``.
-The python version has to be defined here at ``extra:python``, too.
+``extra:cenv:env_name``.
+The python version has to be defined here at ``extra:cenv:python``, too.
 Also you can define requirements only needed during development but not to be
 included into the resulting conda package.
 These requirements have to be defined in the
-``extra:dev_requirements``-section.
+``extra:cenv:dev_requirements``-section.
 
 All other parts of the ``meta.yaml`` have to be defined as default.
 
@@ -94,10 +94,11 @@ A meta.yaml valid for cenv should look like the following:
             - example_package
 
     extra:
-        env_name: example
-        python: 3.6.8
-        dev_requirements:
-            - ipython >=7
+        cenv:
+            env_name: example
+            python: 3.6.8
+            dev_requirements:
+                - ipython >=7
 
 
 .. attention::
@@ -108,7 +109,7 @@ A meta.yaml valid for cenv should look like the following:
 
         - package >=0.1
 
-    The same is required for the ``extra:dev_requirements``-section.
+    The same is required for the ``extra:cenv:dev_requirements``-section.
     If the section ``requirements:run_constrained`` is defined, too, these
     dependency information is extracted for dependency collection, too.
     Not defining a version will not create or update a conda-environment,
